@@ -1,32 +1,31 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
+import AuthContext from "../context/AuthProvider";
 import { Exercise } from "../models/exercise"
+import { getExercisesByUserId } from "../services/apiService";
+import { decodeToken } from "../services/tokenService";
 
 interface Props {
 
 }
 
 export const Exercises = (props: Props) => {
+    const { auth } = useContext(AuthContext);
     const [exercises, setExercises] = useState<Exercise[]>([])
 
-    const getUsers = async () => {
-        const res = await axios.get(`https://rm-tracker-357607.uc.r.appspot.com/exercises`)
-
-        setExercises(res.data)
-    }
-
-    console.log("exercises", exercises)
-
     useEffect(() => {
-        getUsers()
-    }, [])
+        async function fetchAndSetExercises() {
+            const { id } = decodeToken(auth.token)
+            const exercises = await getExercisesByUserId(id)
+            setExercises(exercises)
+        }
+        fetchAndSetExercises()
+    }, [auth.token])
 
     return (
         <div>
-            <h3>Here are all the current exercises</h3>
             <ul>
                 {exercises.map(exercise => (
-                    <li key={exercise.id}>{exercise.name}</li>
+                    <li>{exercise.name}: {exercise.max} {exercise.units}</li>
                 ))}
             </ul>
         </div>

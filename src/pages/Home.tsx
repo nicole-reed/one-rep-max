@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie'
 import React, { useEffect } from 'react'
+import { Users } from '../components/Users'
 
 interface Props {
 
@@ -23,7 +24,7 @@ export const Home = (props: Props) => {
             <header className="App-header">
                 <h1>🏋🏼‍♀️</h1>
                 <h1>This is the one rep max app </h1>
-
+                <Users/>
             </header>
         </div>
     )
