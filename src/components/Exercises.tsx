@@ -13,12 +13,12 @@ export const Exercises = (props: Props) => {
     const [exercises, setExercises] = useState<Exercise[]>([])
 
     useEffect(() => {
-        async function fetchData() {
+        async function fetchAndSetExercises() {
             const { id } = decodeToken(auth.token)
             const exercises = await getExercisesByUserId(id)
             setExercises(exercises)
         }
-        fetchData()
+        fetchAndSetExercises()
     }, [auth.token])
 
     return (

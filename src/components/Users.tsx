@@ -10,12 +10,12 @@ export const Users = (props: Props) => {
     const [users, setUsers] = useState<User[]>([])
 
     useEffect(() => {
-        async function fetchData() {
+        async function fetchAndSetUsers() {
             const users = await getUsers()
 
             setUsers(users)
         }
-        fetchData()
+        fetchAndSetUsers()
     }, [])
 
     return (
