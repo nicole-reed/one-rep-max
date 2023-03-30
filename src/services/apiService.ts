@@ -1,17 +1,10 @@
-import { string, z } from "zod";
+import { z } from "zod";
 import axios from "axios";
 import { Units } from "../enums/units.enum";
 import { Exercise, exerciseSchema } from "../models/exercise";
-
-interface Props {
-
-}
+import { User, userSchema } from "../models/user";
 
 const baseUrl = "https://rm-tracker-357607.uc.r.appspot.com"
-
-const UserSchema = z.object({
-    username: z.string()
-});
 
 const LoginResponseSchema = z.object({
     username: z.string(),
@@ -27,10 +20,18 @@ const LoginResponseSchema = z.object({
 
 export const getUser = async (token: string, id: string): Promise<User> => {
     const res = await axios.get(`${baseUrl}/users/${id}`, { headers: { authorization: `Bearer ${token}` } })
-    const user = UserSchema.parse(res.data)
+    const user = userSchema.parse(res.data)
 
     return user
 }
+
+export const getUsers = async (): Promise<User[]> => {
+    const res = await axios.get(`${baseUrl}/users`)
+    const users = z.array(userSchema).parse(res.data)
+
+    return users
+}
+
 
 export const loginUser = async (username: string, password: string): Promise<LoginResponse> => {
     const res = await axios.post(`${baseUrl}/users/login`, { username, password })
@@ -50,5 +51,4 @@ export const getExercisesByUserId = async (userid: string): Promise<Exercise[]> 
     return exercises
 }
 
-export type User = z.infer<typeof UserSchema>
 export type LoginResponse = z.infer<typeof LoginResponseSchema>

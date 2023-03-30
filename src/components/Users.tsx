@@ -1,6 +1,6 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { User } from "../models/user"
+import { getUsers } from '../services/apiService'
 
 interface Props {
 
@@ -9,16 +9,13 @@ interface Props {
 export const Users = (props: Props) => {
     const [users, setUsers] = useState<User[]>([])
 
-    const getUsers = async () => {
-        const res = await axios.get(`https://rm-tracker-357607.uc.r.appspot.com/users`)
-
-        setUsers(res.data)
-    }
-
-    console.log('users', users)
-
     useEffect(() => {
-        getUsers()
+        async function fetchData() {
+            const users = await getUsers()
+
+            setUsers(users)
+        }
+        fetchData()
     }, [])
 
     return (

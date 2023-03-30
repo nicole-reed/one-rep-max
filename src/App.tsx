@@ -1,8 +1,7 @@
 import "./App.css";
 import { createBrowserRouter, createRoutesFromElements, Route, Outlet, RouterProvider } from "react-router-dom"
 import { Home } from "./pages/Home";
-import { dataLoader, Profile } from "./pages/Profile";
-// import { Profile } from "./pages/Profile";
+import { Profile } from "./pages/Profile";
 import { AddExercise } from "./pages/AddExercise"
 import { ErrorPage } from "./pages/ErrorPage";
 import { Nav } from "./components/Nav";
@@ -15,8 +14,7 @@ function App() {
     createRoutesFromElements(
       <Route path="/" element={<Root />}>
         <Route index element={<Home />} />
-        <Route path="/profile" element={<Profile />} loader={dataLoader} />
-        {/* <Route path="/profile" element={<Profile />} /> */}
+        <Route path="/profile" element={<Profile />} />
         <Route path="/addexercise" element={<AddExercise />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<LogIn />} />
