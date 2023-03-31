@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import { z, ZodType } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { handleError } from "../services/errorHandlerService";
 
 interface Props {
 
@@ -14,6 +16,7 @@ type FormData = {
 }
 
 export const SignUp = (props: Props) => {
+    const navigate = useNavigate();
 
     const schema: ZodType<FormData> = z.object({
         name: z.string().min(2),
@@ -26,10 +29,13 @@ export const SignUp = (props: Props) => {
 
     // function will be called after validation upon submitting form
     const submitData = async (data: FormData) => {
-        const res = await axios.post('https://rm-tracker-357607.uc.r.appspot.com/users', data)
-        console.log("data", data)
-        console.log("res", res.data)
-        // TODO on success redirect to login or just straight to profile
+        try {
+            await axios.post('https://rm-tracker-357607.uc.r.appspot.com/users', data)
+
+            navigate("/login", { replace: true });
+        } catch (error) {
+            handleError(error)
+        }
     }
 
     return (

@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import AuthContext from "../context/AuthProvider";
 import Cookies from "js-cookie";
 import { loginUser } from "../services/apiService";
+import { handleError } from "../services/errorHandlerService";
 
 interface Props { }
 
@@ -28,13 +29,18 @@ export const LogIn = (props: Props) => {
 
     // function will be called after validation upon submitting form
     const submitData = async (data: FormData) => {
-        const { username, token } = await loginUser(data.username, data.password)
+        try {
+            const { username, token } = await loginUser(data.username, data.password)
 
-        setAuth({ username, token })
+            setAuth({ username, token })
 
-        Cookies.set("token", token)
+            Cookies.set("token", token)
 
-        navigate("/profile", { replace: true });
+            navigate("/profile", { replace: true });
+        } catch (error) {
+           handleError(error)
+        }
+
     };
 
     return (

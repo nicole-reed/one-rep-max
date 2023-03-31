@@ -7,6 +7,7 @@ import { useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 import { addExercise } from "../services/apiService";
 import { useNavigate } from "react-router-dom";
+import { handleError } from "../services/errorHandlerService";
 
 interface Props {
 
@@ -29,9 +30,13 @@ export const AddExercise = (props: Props) => {
 
     // function will be called after validation upon submitting form
     const submitData = async (data: FormData) => {
-        await addExercise(auth.token, data.name, data.max, data.units)
+      try {
+          await addExercise(auth.token, data.name, data.max, data.units)
 
-        navigate("/profile", { replace: true });
+          navigate("/profile", { replace: true });
+      } catch (error) {
+        handleError(error)
+      }
     }
 
     return (
