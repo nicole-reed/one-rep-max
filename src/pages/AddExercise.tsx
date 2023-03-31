@@ -1,5 +1,5 @@
 // import { useNavigate } from "react-router-dom";
-import { z } from "zod";
+import { z, ZodError } from "zod";
 import { Units } from "../enums/units.enum";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -29,9 +29,17 @@ export const AddExercise = (props: Props) => {
 
     // function will be called after validation upon submitting form
     const submitData = async (data: FormData) => {
-        await addExercise(auth.token, data.name, data.max, data.units)
+      try {
+          await addExercise(auth.token, data.name, data.max, data.units)
 
-        navigate("/profile", { replace: true });
+          navigate("/profile", { replace: true });
+      } catch (error) {
+          if (error instanceof ZodError) {
+              alert("invalid input")
+          } else {
+              alert("something went wrong")
+          }
+      }
     }
 
     return (

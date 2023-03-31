@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { z, ZodType } from "zod";
+import { z, ZodError, ZodType } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import AuthContext from "../context/AuthProvider";
 import Cookies from "js-cookie";
@@ -28,13 +28,22 @@ export const LogIn = (props: Props) => {
 
     // function will be called after validation upon submitting form
     const submitData = async (data: FormData) => {
-        const { username, token } = await loginUser(data.username, data.password)
+        try {
+            const { username, token } = await loginUser(data.username, data.password)
 
-        setAuth({ username, token })
+            setAuth({ username, token })
 
-        Cookies.set("token", token)
+            Cookies.set("token", token)
 
-        navigate("/profile", { replace: true });
+            navigate("/profile", { replace: true });
+        } catch (error) {
+            if (error instanceof ZodError) {
+                alert("invalid input")
+            } else {
+                alert("something went wrong")
+            }
+        }
+
     };
 
     return (
