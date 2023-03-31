@@ -1,5 +1,5 @@
 // import { useNavigate } from "react-router-dom";
-import { z, ZodError } from "zod";
+import { z } from "zod";
 import { Units } from "../enums/units.enum";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -7,6 +7,7 @@ import { useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 import { addExercise } from "../services/apiService";
 import { useNavigate } from "react-router-dom";
+import { handleError } from "../services/errorHandlerService";
 
 interface Props {
 
@@ -34,11 +35,7 @@ export const AddExercise = (props: Props) => {
 
           navigate("/profile", { replace: true });
       } catch (error) {
-          if (error instanceof ZodError) {
-              alert("invalid input")
-          } else {
-              alert("something went wrong")
-          }
+        handleError(error)
       }
     }
 

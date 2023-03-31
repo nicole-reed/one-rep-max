@@ -1,11 +1,12 @@
 import { useContext } from "react"
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { z, ZodError, ZodType } from "zod";
+import { z, ZodType } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import AuthContext from "../context/AuthProvider";
 import Cookies from "js-cookie";
 import { loginUser } from "../services/apiService";
+import { handleError } from "../services/errorHandlerService";
 
 interface Props { }
 
@@ -37,11 +38,7 @@ export const LogIn = (props: Props) => {
 
             navigate("/profile", { replace: true });
         } catch (error) {
-            if (error instanceof ZodError) {
-                alert("invalid input")
-            } else {
-                alert("something went wrong")
-            }
+           handleError(error)
         }
 
     };

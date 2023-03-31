@@ -1,8 +1,9 @@
 import { useForm } from "react-hook-form";
-import { z, ZodError, ZodType } from "zod";
+import { z, ZodType } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { handleError } from "../services/errorHandlerService";
 
 interface Props {
 
@@ -33,11 +34,7 @@ export const SignUp = (props: Props) => {
 
             navigate("/login", { replace: true });
         } catch (error) {
-            if (error instanceof ZodError) {
-                alert("invalid input")
-            } else {
-                alert("something went wrong")
-            }
+            handleError(error)
         }
     }
 
