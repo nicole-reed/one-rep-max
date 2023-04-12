@@ -3,7 +3,6 @@ import { createBrowserRouter, createRoutesFromElements, Route, Outlet, RouterPro
 import { Home } from "./pages/Home";
 import { Profile } from "./pages/Profile";
 import { AddExercise } from "./pages/AddExercise"
-import { ErrorPage } from "./pages/ErrorPage";
 import { Nav } from "./components/Nav";
 import { SignUp } from "./pages/SignUp";
 import { LogIn } from "./pages/LogIn";
@@ -18,7 +17,6 @@ function App() {
         <Route path="/addexercise" element={<AddExercise />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<LogIn />} />
-        <Route path="*" element={<ErrorPage />} />
       </Route>
     )
   )
