@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
 import { z, ZodType } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { handleError } from "../services/errorHandlerService";
+import { addUser } from "../services/apiService";
 
 interface Props {
 
@@ -30,7 +30,7 @@ export const SignUp = (props: Props) => {
     // function will be called after validation upon submitting form
     const submitData = async (data: FormData) => {
         try {
-            await axios.post('https://rm-tracker-357607.uc.r.appspot.com/users', data)
+            await addUser(data.name, data.username, data.password)
 
             navigate("/login", { replace: true });
         } catch (error) {

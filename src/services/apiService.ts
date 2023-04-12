@@ -11,13 +11,6 @@ const LoginResponseSchema = z.object({
     token: z.string()
 });
 
-// const UserIdSchema = z.object({
-//     params: z.object({
-//         userid: z.string()
-//     })
-// });
-
-
 export const getUser = async (token: string, id: string): Promise<User> => {
     const res = await axios.get(`${baseUrl}/users/${id}`, { headers: { authorization: `Bearer ${token}` } })
     const user = userSchema.parse(res.data)
@@ -32,6 +25,9 @@ export const getUsers = async (): Promise<User[]> => {
     return users
 }
 
+export const addUser = async (name: string, username: string, password: string): Promise<void> => {
+    await axios.post(`${baseUrl}/users`, { name, username, password })
+}
 
 export const loginUser = async (username: string, password: string): Promise<LoginResponse> => {
     const res = await axios.post(`${baseUrl}/users/login`, { username, password })
