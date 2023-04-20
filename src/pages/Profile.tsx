@@ -18,10 +18,10 @@ export const Profile = (props: Props) => {
 
     return (
         <div className="App-header">
-            <h2>Profile of {auth.username}</h2>
+            <h2>{auth.username}</h2>
 
-            <h3>{auth.username}'s Current Maxes</h3>
-            <Exercises/>
+            <h3>Current Maxes</h3>
+            <Exercises />
         </div>
     )
 }

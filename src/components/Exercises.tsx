@@ -3,6 +3,7 @@ import AuthContext from "../context/AuthProvider";
 import { Exercise } from "../models/exercise"
 import { getExercisesByUserId } from "../services/apiService";
 import { decodeToken } from "../services/tokenService";
+import { ExerciseById } from "./Exercise";
 
 interface Props {
 
@@ -22,10 +23,10 @@ export const Exercises = (props: Props) => {
     }, [auth.token])
 
     return (
-        <div>
+        <div className="exercise-list">
             <ul>
                 {exercises.map(exercise => (
-                    <li>{exercise.name}: {exercise.max} {exercise.units}</li>
+                    <ExerciseById key={exercise.id} id={exercise.id} name={exercise.name} max={exercise.max} units={exercise.units} />
                 ))}
             </ul>
         </div>
