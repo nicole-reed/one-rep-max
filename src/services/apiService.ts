@@ -47,4 +47,8 @@ export const getExercisesByUserId = async (userid: string): Promise<Exercise[]> 
     return exercises
 }
 
+export const updateExercise = async (token: string, name: string, max: number, units: Units, id: string): Promise<void> => {
+    await axios.put(`${baseUrl}/exercises/${id}`, {name, max, units}, { headers: { authorization: `Bearer ${token}` } })
+}
+
 export type LoginResponse = z.infer<typeof LoginResponseSchema>
