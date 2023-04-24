@@ -1,4 +1,3 @@
-// import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { Units } from "../enums/units.enum";
 import { useForm } from "react-hook-form";
@@ -6,11 +5,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 import { addExercise } from "../services/apiService";
-import { useNavigate } from "react-router-dom";
 import { handleError } from "../services/errorHandlerService";
 
 interface Props {
-
+    closeAddExerciseModal: () => void;
 }
 
 const FormDataSchema = z.object({
@@ -22,7 +20,6 @@ const FormDataSchema = z.object({
 type FormData = z.infer<typeof FormDataSchema>
 
 export const AddExercise = (props: Props) => {
-    const navigate = useNavigate();
     const { auth } = useContext(AuthContext);
 
     // react-hook-form 
@@ -30,34 +27,32 @@ export const AddExercise = (props: Props) => {
 
     // function will be called after validation upon submitting form
     const submitData = async (data: FormData) => {
-      try {
-          await addExercise(auth.token, data.name, data.max, data.units)
-
-          navigate("/profile", { replace: true });
-      } catch (error) {
-        handleError(error)
-      }
+        try {
+            await addExercise(auth.token, data.name, data.max, data.units)
+            props.closeAddExerciseModal()
+        } catch (error) {
+            handleError(error)
+        }
     }
 
     return (
-        <div className="App-header">
-            <h2>Add an Exercise</h2>
+        <div>
+            <h4>Add an Exercise</h4>
             <form onSubmit={handleSubmit(submitData)}>
-                <label> Name: </label>
+                <label className='smText'> Name: </label>
                 <input type="text" {...register("name")} />
-                {errors.name && <span>{errors.name.message}</span>}
+                {errors.name && <span className='smText'>{errors.name.message}</span>}
 
-                <label> Max: </label>
+                <label className='smText'> Max: </label>
                 <input type="number" {...register("max", { valueAsNumber: true })} />
-                {errors.max && <span>{errors.max.message}</span>}
+                {errors.max && <span className='smText'>{errors.max.message}</span>}
 
-                <label> Units: </label>
+                <label className='smText'> Units: </label>
                 <input type="units" {...register("units")} placeholder="lbs/kgs" />
-                {errors.units && <span>{errors.units.message}</span>}
+                {errors.units && <span className='smText'>{errors.units.message}</span>}
 
-                <input type="submit" />
+                <input type="submit" className="form-btn" />
             </form>
-            {/* <button onClick={() => navigate("/profile")}>navigate to profile after submit</button> */}
         </div>
     )
 }

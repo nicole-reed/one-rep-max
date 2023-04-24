@@ -7,16 +7,27 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+a {
+  text-decoration: none;
+  color: cornflowerblue;
+  font-weight: 500;
+}
+
+a:hover {
+  color: #282c34;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
 .nav-items {
-    padding: 0;
-    list-style: none;
-    display: flex;
-    justify-content: space-evenly;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: baseline;
 }
 
 .nav-item {
@@ -32,14 +43,29 @@ ul {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   margin: 1rem
 }
 
-.exercise button {
+button {
   height: 2rem;
   margin: .5rem;
   border-radius: 8px;
   border: none;
+  color:cornflowerblue;
+  font-weight: 800;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.form-btn {
+  height: 2rem;
+  margin: .5rem;
+  border-radius: 8px;
+  border: none;
+  background-color: white;
   color:cornflowerblue;
   font-weight: 800;
 }
