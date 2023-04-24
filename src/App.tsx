@@ -2,7 +2,6 @@ import "./App.css";
 import { createBrowserRouter, createRoutesFromElements, Route, Outlet, RouterProvider } from "react-router-dom"
 import { Home } from "./pages/Home";
 import { Profile } from "./pages/Profile";
-// import { AddExercise } from "./pages/AddExercise"
 import { Nav } from "./components/Nav";
 import { SignUp } from "./pages/SignUp";
 import { LogIn } from "./pages/LogIn";
@@ -14,7 +13,6 @@ function App() {
       <Route path="/" element={<Root />}>
         <Route index element={<Home />} />
         <Route path="/profile" element={<Profile />} />
-        {/* <Route path="/addexercise" element={<AddExercise />} /> */}
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<LogIn />} />
       </Route>

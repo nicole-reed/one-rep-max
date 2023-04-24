@@ -5,7 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useContext } from "react";
 import AuthContext from "../context/AuthProvider";
 import { addExercise } from "../services/apiService";
-// import { useNavigate } from "react-router-dom";
 import { handleError } from "../services/errorHandlerService";
 
 interface Props {
@@ -21,7 +20,6 @@ const FormDataSchema = z.object({
 type FormData = z.infer<typeof FormDataSchema>
 
 export const AddExercise = (props: Props) => {
-    // const navigate = useNavigate();
     const { auth } = useContext(AuthContext);
 
     // react-hook-form 
@@ -55,7 +53,6 @@ export const AddExercise = (props: Props) => {
 
                 <input type="submit" className="form-btn" />
             </form>
-            {/* <button onClick={() => navigate("/profile")}>navigate to profile after submit</button> */}
         </div>
     )
 }
