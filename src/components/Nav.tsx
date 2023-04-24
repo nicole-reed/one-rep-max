@@ -35,8 +35,8 @@ export const Nav = (props: Props) => {
                     <>
                         <li className="nav-item"><Link to="/">Home</Link></li>
                         <li className="nav-item"><Link to="/profile">Profile</Link></li>
-                        <li className="nav-item"><Link to="/addexercise">Add Exercise</Link></li>
-                        <button onClick={() => logout()}>Log Out</button>
+                        {/* <li className="nav-item"><Link to="/addexercise">Add Exercise</Link></li> */}
+                        <button className="nav-item" onClick={() => logout()}>Log Out</button>
                     </>
                 }
             </ul>
