@@ -1,26 +1,38 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { Exercise, exerciseSchema } from "../models/exercise"
+import { useContext, useEffect, useState } from 'react'
+import { Exercise } from "../models/exercise"
 import { EditExercise } from './EditExercise'
 import { Units } from '../enums/units.enum'
+import AuthContext from '../context/AuthProvider'
+import { decodeToken } from '../services/tokenService'
+import { deleteExercise, getExerciseById } from '../services/apiService'
 
 interface Props {
-    id: string,
-    name: string,
-    max: number,
-    units: Units
+    id: string;
+    name: string;
+    max: number;
+    units: Units;
+    handler: () => void
 }
 
 export const ExerciseById = (props: Props) => {
+    const { auth } = useContext(AuthContext);
     const [exercise, setExercise] = useState<Exercise>()
     const [edit, setEdit] = useState(false)
 
-    const getExercise = async (): Promise<void> => {
-        const res = await axios.get<unknown>(`https://rm-tracker-357607.uc.r.appspot.com/exercises/${props.id}`)
+    const getExercise = async (id: string): Promise<void> => {
+        const exercise = await getExerciseById(props.id)
 
-        const validatedExercise = exerciseSchema.parse(res.data)
+        setExercise(exercise)
+    }
 
-        setExercise(validatedExercise)
+    const handleDelete = async (): Promise<void> => {
+        const loggedInUser = decodeToken(auth.token)
+        const exerciseUserId = exercise?.userid
+
+        if (exercise && loggedInUser.id === exerciseUserId) {
+            await deleteExercise(auth.token, exercise.id)
+            props.handler()
+        }
     }
 
     const closeEditModal = (): void => {
@@ -28,7 +40,7 @@ export const ExerciseById = (props: Props) => {
     }
 
     useEffect(() => {
-        getExercise()
+        getExercise(props.id)
     },)
 
     //TODO fix the styling here
@@ -45,6 +57,7 @@ export const ExerciseById = (props: Props) => {
             <p>{exercise?.name}</p>
             <p>{exercise?.max} {exercise?.units}</p>
             <button onClick={() => setEdit(true)}>Edit</button>
+            <button onClick={() => handleDelete()}>Delete</button>
         </div>
     )
 }
