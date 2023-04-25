@@ -40,6 +40,13 @@ export const addExercise = async (token: string, name: string, max: number, unit
     await axios.post(`${baseUrl}/exercises`, { name, max, units }, { headers: { authorization: `Bearer ${token}` } })
 }
 
+export const getExerciseById = async (id: string): Promise<Exercise> => {
+    const res = await axios.get(`${baseUrl}/exercises/${id}`)
+    const exercise = exerciseSchema.parse(res.data)
+
+    return exercise
+}
+
 export const getExercisesByUserId = async (userid: string): Promise<Exercise[]> => {
     const res = await axios.get(`${baseUrl}/users/${userid}/exercises`)
     const exercises = z.array(exerciseSchema).parse(res.data)
@@ -49,6 +56,10 @@ export const getExercisesByUserId = async (userid: string): Promise<Exercise[]> 
 
 export const updateExercise = async (token: string, name: string, max: number, units: Units, id: string): Promise<void> => {
     await axios.put(`${baseUrl}/exercises/${id}`, {name, max, units}, { headers: { authorization: `Bearer ${token}` } })
+}
+
+export const deleteExercise = async (token: string, id: string): Promise<void> => {
+    await axios.delete(`${baseUrl}/exercises/${id}`, { headers: { authorization: `Bearer ${token}` } })
 }
 
 export type LoginResponse = z.infer<typeof LoginResponseSchema>
