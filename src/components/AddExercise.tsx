@@ -9,6 +9,7 @@ import { handleError } from "../services/errorHandlerService";
 
 interface Props {
     closeAddExerciseModal: () => void;
+    triggerExercisesChange: () => void;
 }
 
 const FormDataSchema = z.object({
@@ -30,6 +31,8 @@ export const AddExercise = (props: Props) => {
         try {
             await addExercise(auth.token, data.name, data.max, data.units)
             props.closeAddExerciseModal()
+            props.triggerExercisesChange()
+            console.log('addExercise submitdata()')
         } catch (error) {
             handleError(error)
         }
