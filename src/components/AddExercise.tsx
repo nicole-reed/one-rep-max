@@ -32,7 +32,6 @@ export const AddExercise = (props: Props) => {
             await addExercise(auth.token, data.name, data.max, data.units)
             props.closeAddExerciseModal()
             props.triggerExercisesChange()
-            console.log('addExercise submitdata()')
         } catch (error) {
             handleError(error)
         }

@@ -23,7 +23,6 @@ export const Exercises = (props: Props) => {
         const { id } = decodeToken(auth.token)
         const exercises = await getExercisesByUserId(id)
         setExercises(exercises)
-        console.log('triggerExerciseListChange()')
     }
 
     useEffect(() => {
