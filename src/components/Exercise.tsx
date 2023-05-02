@@ -11,7 +11,7 @@ interface Props {
     name: string;
     max: number;
     units: Units;
-    handler: () => void
+    triggerExercisesChange: () => void;
 }
 
 export const ExerciseById = (props: Props) => {
@@ -31,7 +31,7 @@ export const ExerciseById = (props: Props) => {
 
         if (exercise && loggedInUser.id === exerciseUserId) {
             await deleteExercise(auth.token, exercise.id)
-            props.handler()
+            props.triggerExercisesChange()
         }
     }
 

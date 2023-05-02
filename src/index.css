@@ -47,13 +47,28 @@ ul {
   margin: 1rem
 }
 
-button {
+.exercise-list {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.exercise-list ul {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.exercise-list button {
   height: 2rem;
   margin: .5rem;
   border-radius: 8px;
   border: none;
   color:cornflowerblue;
   font-weight: 800;
+  max-width: 20rem;
 }
 
 button:hover {
@@ -63,13 +78,24 @@ button:hover {
 .form-btn {
   height: 2rem;
   margin: .5rem;
-  border-radius: 8px;
+  border-radius: 10px;
   border: none;
   background-color: white;
   color:cornflowerblue;
   font-weight: 800;
 }
 
+form input {
+  border-radius: 8px;
+  text-align: center;
+  height: 1.5rem;
+}
+
+form button {
+  margin-top: 10rem;;
+}
+
+
 .smText {
-  font-size:medium;
+  font-size: medium;
 }
