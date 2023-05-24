@@ -19,9 +19,8 @@ export const ExerciseById = (props: Props) => {
     const [exercise, setExercise] = useState<Exercise>()
     const [edit, setEdit] = useState(false)
 
-    const getExercise = async (id: string): Promise<void> => {
+    const getExercise = async (): Promise<void> => {
         const exercise = await getExerciseById(props.id)
-
         setExercise(exercise)
     }
 
@@ -40,8 +39,9 @@ export const ExerciseById = (props: Props) => {
     }
 
     useEffect(() => {
-        getExercise(props.id)
-    },)
+        getExercise()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     //TODO fix the styling here
     if (edit === true) {
@@ -54,8 +54,10 @@ export const ExerciseById = (props: Props) => {
     }
     return (
         <div className='exercise'>
+
             <p>{exercise?.name}</p>
             <p>{exercise?.max} {exercise?.units}</p>
+
             <button onClick={() => setEdit(true)}>Edit</button>
             <button onClick={() => handleDelete()}>Delete</button>
         </div>

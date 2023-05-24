@@ -40,20 +40,20 @@ export const AddExercise = (props: Props) => {
     return (
         <div>
             <h4>Add an Exercise</h4>
-            <form onSubmit={handleSubmit(submitData)}>
+            <form title="form" onSubmit={handleSubmit(submitData)}>
                 <label className='smText'> Name: </label>
-                <input type="text" {...register("name")} />
-                {errors.name && <span className='smText'>{errors.name.message}</span>}
+                <input title="name" type="text" {...register("name")} />
+                {errors.name && <span title='nameError' className='smText'>{errors.name.message}</span>}
 
                 <label className='smText'> Max: </label>
-                <input type="number" {...register("max", { valueAsNumber: true })} />
-                {errors.max && <span className='smText'>{errors.max.message}</span>}
+                <input title="max" type="number" {...register("max", { valueAsNumber: true })} />
+                {errors.max && <span title='maxError' className='smText'>{errors.max.message}</span>}
 
                 <label className='smText'> Units: </label>
-                <input type="units" {...register("units")} placeholder="lbs/kgs" />
-                {errors.units && <span className='smText'>{errors.units.message}</span>}
+                <input title="units" type="units" {...register("units")} placeholder="lbs/kgs" />
+                {errors.units && <span title='unitsError' className='smText'>{errors.units.message}</span>}
 
-                <input type="submit" className="form-btn" />
+                <input type="submit" className="form-btn" value="Add Exercise" />
             </form>
         </div>
     )

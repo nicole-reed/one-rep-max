@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { z, ZodType } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { handleError } from "../services/errorHandlerService";
 import { addUser } from "../services/apiService";
 
@@ -16,7 +16,7 @@ type FormData = {
 }
 
 export const SignUp = (props: Props) => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const schema: ZodType<FormData> = z.object({
         name: z.string().min(2),
@@ -32,7 +32,7 @@ export const SignUp = (props: Props) => {
         try {
             await addUser(data.name, data.username, data.password)
 
-            navigate("/login", { replace: true });
+            // navigate("/login", { replace: true });
         } catch (error) {
             handleError(error)
         }
@@ -43,18 +43,18 @@ export const SignUp = (props: Props) => {
             <h2>Create an Account</h2>
             <form onSubmit={handleSubmit(submitData)}>
                 <label> Name: </label>
-                <input type="name" {...register("name")} />
+                <input title="name" type="name" {...register("name")} />
                 {errors.name && <span>{errors.name.message}</span>}
 
                 <label> Username: </label>
-                <input type="username" {...register("username",)} />
+                <input title="username" type="username" {...register("username",)} />
                 {errors.username && <span>{errors.username.message}</span>}
 
                 <label> Password: </label>
-                <input type="password" {...register("password")} />
+                <input title="password" type="password" {...register("password")} />
                 {errors.password && <span>{errors.password.message}</span>}
 
-                <input type="submit" />
+                <input title="submit" type="submit" />
             </form>
         </div>
     )

@@ -2,8 +2,8 @@ import { ZodError } from "zod"
 
 export const handleError = (error: unknown): void => {
     if (error instanceof ZodError) {
-        alert("invalid input")
+        console.log("invalid input")
     } else {
-        alert("something went wrong")
+        console.log("something went wrong")
     }
 }
