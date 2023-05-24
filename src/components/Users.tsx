@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { User } from "../models/user"
 import { getUsers } from '../services/apiService'
+import { handleError } from '../services/errorHandlerService'
 
 interface Props {
 
@@ -9,12 +10,16 @@ interface Props {
 export const Users = (props: Props) => {
     const [users, setUsers] = useState<User[]>([])
 
-    useEffect(() => {
-        async function fetchAndSetUsers() {
+    const fetchAndSetUsers = async () => {
+        try {
             const users = await getUsers()
-
             setUsers(users)
+        } catch (error) {
+            handleError(error)
         }
+    }
+
+    useEffect(() => {
         fetchAndSetUsers()
     }, [])
 

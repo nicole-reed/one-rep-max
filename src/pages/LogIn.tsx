@@ -1,5 +1,4 @@
 import { useContext } from "react"
-import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z, ZodType } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,7 +16,6 @@ type FormData = {
 
 export const LogIn = (props: Props) => {
     const { setAuth } = useContext(AuthContext);
-    const navigate = useNavigate();
 
     const schema: ZodType<FormData> = z.object({
         username: z.string(),
@@ -36,9 +34,9 @@ export const LogIn = (props: Props) => {
 
             Cookies.set("token", token)
 
-            navigate("/profile", { replace: true });
+            // navigate("/profile", { replace: true });
         } catch (error) {
-           handleError(error)
+            handleError(error)
         }
 
     };
@@ -48,14 +46,14 @@ export const LogIn = (props: Props) => {
             <h2>Log In</h2>
             <form onSubmit={handleSubmit(submitData)}>
                 <label> Username: </label>
-                <input type="username" {...register("username",)} />
+                <input title="username" type="username" {...register("username",)} />
                 {errors.username && <span>{errors.username.message}</span>}
 
                 <label> Password: </label>
-                <input type="password" {...register("password")} />
+                <input title="password" type="password" {...register("password")} />
                 {errors.password && <span>{errors.password.message}</span>}
 
-                <input type="submit" />
+                <input title="submit" type="submit" />
             </form>
         </div>
     );

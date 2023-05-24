@@ -5,6 +5,7 @@ import { getExercisesByUserId } from "../services/apiService";
 import { decodeToken } from "../services/tokenService";
 import { ExerciseById } from "./Exercise";
 import { AddExercise } from "./AddExercise";
+import { handleError } from "../services/errorHandlerService";
 
 interface Props {
 }
@@ -27,9 +28,16 @@ export const Exercises = (props: Props) => {
 
     useEffect(() => {
         async function fetchAndSetExercises(): Promise<void> {
-            const { id } = decodeToken(auth.token)
-            const exercises = await getExercisesByUserId(id)
-            setExercises(exercises)
+            try {
+                const { id } = decodeToken(auth.token)
+
+                const exercises = await getExercisesByUserId(id)
+
+                setExercises(exercises)
+            } catch (error) {
+                console.log('error', error)
+                handleError(error)
+            }
         }
         fetchAndSetExercises()
     }, [auth.token])
@@ -39,7 +47,9 @@ export const Exercises = (props: Props) => {
             <div className="exercise-list">
                 <ul>
                     {exercises.map(exercise => (
-                        <ExerciseById key={exercise.id} id={exercise.id} name={exercise.name} max={exercise.max} units={exercise.units} triggerExercisesChange={triggerExercisesListChange} />
+                        <li key={exercise.id}>
+                            <ExerciseById id={exercise.id} name={exercise.name} max={exercise.max} units={exercise.units} triggerExercisesChange={triggerExercisesListChange} />
+                        </li>
                     ))}
                 </ul>
                 <button onClick={() => setAddExercise(!addExercise)}>{buttonText}</button>
@@ -52,7 +62,9 @@ export const Exercises = (props: Props) => {
         <div className="exercise-list">
             <ul>
                 {exercises.map(exercise => (
-                    <ExerciseById key={exercise.id} id={exercise.id} name={exercise.name} max={exercise.max} units={exercise.units} triggerExercisesChange={triggerExercisesListChange} />
+                    <li key={exercise.id}>
+                        <ExerciseById key={exercise.id} id={exercise.id} name={exercise.name} max={exercise.max} units={exercise.units} triggerExercisesChange={triggerExercisesListChange} />
+                    </li>
                 ))}
             </ul>
             <button onClick={() => setAddExercise(!addExercise)}>{buttonText}</button>

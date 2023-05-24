@@ -41,17 +41,17 @@ export function EditExercise(props: Props) {
 
     return (
 
-        <form onSubmit={handleSubmit(submitData)}>
+        <form title={"form"} onSubmit={handleSubmit(submitData)}>
             <label className='smText'> Name: </label>
-            <input type="text" defaultValue={`${props.name}`} {...register('name')} />
+            <input title="name" type="text" defaultValue={`${props.name}`} {...register('name')} />
             {errors.name && <span className='smText'>{errors.name.message}</span>}
 
             <label className='smText'> Max: </label>
-            <input type="number" defaultValue={`${props.max}`} {...register('max', { valueAsNumber: true })} />
+            <input title="max" type="number" defaultValue={`${props.max}`} {...register('max', { valueAsNumber: true })} />
             {errors.max && <span className='smText'>{errors.max.message}</span>}
 
             <label className='smText'> Units: </label>
-            <input type="units" defaultValue={`${props.units}`} {...register('units')} />
+            <input title="units" type="units" defaultValue={`${props.units}`} {...register('units')} />
             {errors.units && <span className='smText'>{errors.units.message}</span>}
 
             <input type="submit" value="Save Changes" />

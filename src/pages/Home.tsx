@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { Users } from '../components/Users'
 
 interface Props {
@@ -8,13 +8,12 @@ interface Props {
 
 export const Home = (props: Props) => {
 
-
     useEffect(() => {
         const token = Cookies.get("token")
         if (token) {
-            console.log('logged in')
+            // console.log('logged in')
         } else {
-            console.log('no token')
+            // console.log('no token')
         }
     }, [])
 
@@ -24,7 +23,7 @@ export const Home = (props: Props) => {
             <header className="App-header">
                 <h1>🏋🏼‍♀️</h1>
                 <h1>This is the one rep max app </h1>
-                <Users/>
+                <Users />
             </header>
         </div>
     )
